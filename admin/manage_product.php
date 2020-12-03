@@ -144,7 +144,7 @@ include('includs/header.php');
                                         $result = mysqli_query($conn, $query);
 
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            echo " <input type='checkbox'  name='size' value='{$row['size_name']}'>
+                                            echo " <input type='checkbox'  name='size[]' value='{$row['size_name']}'>
                                                 <label for='size'>{$row['size_name']}</label><br>";
                                         }
                                         
