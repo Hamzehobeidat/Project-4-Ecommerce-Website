@@ -10,10 +10,26 @@ if (isset($_POST['submit'])) {
     $image_name = $_FILES['cat_img']['name'];
     $tmp_name = $_FILES['cat_img']['tmp_name'];
     $path = 'img/category_image/';
+    $subName  = $_POST['sub_name'];
     move_uploaded_file($tmp_name, $path . $image_name);
 
     //insert to mysql
-    $query = "insert into category (category_name,category_image,category_tag) values('$name','$path$image_name','$tag')";
+    $query = "insert into category (category_name,category_image,category_tag ,sub_name) values('$name','$path$image_name','$tag', '$subName ')";
+    mysqli_query($conn, $query);
+    header("location:manage_category.php");
+}
+?>
+
+<?php
+
+if (isset($_POST['submit'])) {
+
+    $name = $_POST['sub_name'];
+    
+ 
+
+    //insert to mysql
+    $query = "insert into subcategory (sub_name) values('$name')";
     mysqli_query($conn, $query);
     header("location:manage_category.php");
 }
@@ -36,16 +52,25 @@ include('includs/header.php');
                             <div class="row">
 
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Category Name</label>
-                                        <input type="text" class="form-control" name="cat_name">
+                                        <input type="text" class="form-control" name="cat_name" required="required"
+>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Category Tag</label>
-                                        <input type="text" class="form-control" name="cat_tag">
+                                        <input type="text" class="form-control" name="cat_tag" required="required"
+>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Subcategory</label>
+                                        <input type="text" class="form-control" name="sub_name" required="required"
+>
                                     </div>
                                 </div>
 
@@ -73,7 +98,8 @@ include('includs/header.php');
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Category Name</th>
+                                    <th>Subategory</th>
                                     <th>Image</th>
                                     <th>Tag</th>
                                     <th>Edit</th>
@@ -87,10 +113,11 @@ include('includs/header.php');
                                         echo "<tr>";
                                         echo "<td>{$row['category_id']}</td>";
                                         echo "<td>{$row['category_name']}</td>";
+                                        echo "<td>{$row['sub_name']}</td>";
                                         echo "<td><img src='{$row['category_image']}' width='80px' height='80px'</td>";
                                         echo "<td>{$row['category_tag']}</td>";
                                         echo "<td><a href='category_edit.php?id={$row['category_id']}'class='btn btn-primary'><i class='material-icons'>create</i></a></td>";
-                                        echo "<td><a href='category_delete.php?id={$row['category_id']}' class='btn btn-danger'><i class='material-icons'>delete_forever</i></a></td>";
+                                        echo "<td><a href='category_delete.php?id={$row['category_id']}&&subname={$row['sub_name']}' class='btn btn-danger'><i class='material-icons'>delete_forever</i></a></td>";
                                         echo "</tr>";
                                     }
 

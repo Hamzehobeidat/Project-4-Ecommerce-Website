@@ -25,16 +25,23 @@ if (isset($_POST['submit'])) {
     $productPrice   = $_POST['product_price'];
     $categoryName   = $_POST['category_name'];
     $categoryTag    = $_POST['category_tag'];
+    $subName    = $_POST['sub_name'];
+    
     $productsSale   = $_POST['products_sale'];
-    $sizeName       = $_POST['size'];
+   
+    // The implode() function returns a string from the elements of an array.
+    $checkbox_values = implode(',',$_POST['size']);
+    
 
 
-
-    $query = "INSERT INTO products( products_name, products_des, products_image,  products_price, category_name, category_tag ,products_sale,size_name)
-    VALUES('$productName', '$productDescription', '$path$image_name' , '$productPrice', '$categoryName', '$categoryTag' ,  '$productsSale','$sizeName')";
+    $query = "INSERT INTO products( products_name, products_des, products_image,  products_price, category_name, category_tag , products_sale, size_name ,sub_name )
+    VALUES('$productName', '$productDescription', '$path$image_name' , '$productPrice', '$categoryName', '$categoryTag' ,  '$productsSale','$checkbox_values' , '$subName')";
     mysqli_query($conn, $query);
     header("location:manage_product.php");
 }
+
+
+
 
 ?>
 <?php
@@ -54,9 +61,7 @@ include('includs/header.php');
 
 
                         <div class="card-body">
-                            <div class="card-title">
-                                <h3 class="text-center title-2">Create Product</h3>
-                            </div>
+                           
                             <hr>
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="row">
@@ -109,7 +114,7 @@ include('includs/header.php');
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <select id="select" class="form-control" name="category_name">
                                             <option style='color:black; background-color:#E7AB3C;'>Select Category</option>
                                             <?php
@@ -122,51 +127,53 @@ include('includs/header.php');
                                         </select>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <select id="select" class="form-control" name="category_name">
-                                            <option style='color:black; background-color:#E7AB3C;'>Select Category</option>
+                                    <div class="col-md-6">
+                                        <select id="select" class="form-control" name="sub_name" >
+                                            <option style='color:black; background-color:#E7AB3C;'>Select Subcategory</option>
                                             <?php
-                                            $query  = "select * from sizes";
+                                            $query  = "select * from category";
                                             $result = mysqli_query($conn, $query);
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                echo " <option style='color:black; background-color:#E7AB3C;'> {$row['size_name']} </option>";
+                                                echo " <option style='color:black; background-color:#E7AB3C;'> {$row['sub_name']} </option>";
                                             }
                                             ?>
                                         </select>
                                     </div>
 
 
+                                </div>
+                                <div class="row">
+                                <div class="col-md-12">
+                                            <label for="size" style='color:#e7ab3c;'>Select Size</label><br>
+                                            <?php
+                                            $query  = "select * from sizes";
+                                            $result = mysqli_query($conn, $query);
 
-                                    <div class="col-md-4">
-                                        <label for="size">Select Size</label><br>
-                                        <?php
-                                        $query  = "select * from sizes";
-                                        $result = mysqli_query($conn, $query);
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo " <input type='checkbox'   name='size[]' value='{$row['size_name']}'>
+                                                    <label for='size' style='color:#e7ab3c; display: inline;'>{$row['size_name']}</label>";
+                                            }
+                                            
+                                            ?>
 
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo " <input type='checkbox'  name='size[]' value='{$row['size_name']}'>
-                                                <label for='size'>{$row['size_name']}</label><br>";
-                                        }
-                                        
-                                        ?>
-
-
-                                        <!-- <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                        <label for="vehicle1"> I have a bike</label><br> -->
                                     </div>
-
+                                 </div>
+                                <div class="row">
 
                                     <div class="col-md-6">
-                                        <label for="img"></label>
-                                        <input type="file" class="btn btn-primary col-md-6" name="product_image">
+                                            <label for="img"></label>
+                                            <input type="file" class="btn btn-primary col-md-8" name="product_image">
 
-                                    </div>
-
+                                        </div>
+                                   
+                                    <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary pull-right" name="submit">Update Product</button>
+                                        </div>
                                 </div>
 
 
-                                <button type="submit" class="btn btn-primary pull-right" name="submit">Update Product</button>
-                                <div class="clearfix"></div>
+                               
+                                
                             </form>
                         </div>
                     </div>
@@ -203,6 +210,9 @@ include('includs/header.php');
                                         category name
                                     </th>
                                     <th>
+                                        Subcategory
+                                    </th>
+                                    <th>
                                         category_tag
                                     </th>
                                     <th>
@@ -230,9 +240,10 @@ include('includs/header.php');
                                             echo "<td>{$row['products_sale']}</td>";
                                             echo "<td>{$row['products_des']}</td>";
                                             echo "<td>{$row['category_name']}</td>";
+                                            echo "<td>{$row['sub_name']}</td>";
                                             echo "<td>{$row['category_tag']}</td>";
                                             echo "<td>{$row['size_name']}</td>";
-                                            echo "<td><a  href='edit_product.php?id={$row['products_id']}' class = 'btn btn-block btn-success'>
+                                            echo "<td><a  href='edit_product.php?id={$row['products_id']}' class = 'btn btn-primary'>
                                                 <i class='material-icons '>create</i>
                                                 </a>
                                                 </td>";
