@@ -3,13 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Full Dynamic website ">
-    <meta property="og:locale" content="en_US">
-    <meta name="description" content="Get the best offers from the Elegant store in Jordan. Choose your favorite clothes and order them now! Logistics service. Production control.  home delivery at the lowest cost Most popular Types: clothes and accessories women, men and Kids ">
-    <meta property="og:description" content="Get the best offers from the Elegant store in Jordan. Choose your favorite clothes and order them now! Logistics service. Production control.  home delivery at the lowest cost Most popular Types: clothes and accessories women, men and Kids ">
-    <meta name="keywords" content="Ecommerce  , Ecommerce website, New arrival , Sale,End Year Sale , Christmas, Christmas clothes , Clothes , Accessories , Sweater Burgundy, Copper Watch,  Mens Fashion Watch,Girls Pinafore Dress, Cotton Warm Jacket, Fashion women outfit ,Fashion men outfit, Fashion Kids outfit,baby clothes, Baby boy winter outfits,Kids dress girl   ">
-    <meta name="author" content="Mohammad & Hamzeh& Lara , Dania , Tala , Aya ">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>elegant Shop</title>
 
     <!-- Google Font -->
@@ -94,13 +91,20 @@
                     <div class="col-lg-7 col-md-7">
                         <div class="advanced-search">
                             <button type="button" class="category-btn">Elegant Shop</button>
+                                <div class="block-search-block">
 
+                                <form  method="get" action="search.php" class="form-search form-search-width-category" >
+                                    <div class="form-content">
+                                    <div class="input-group">
+                                        <input type="text" name="search" placeholder="What do you need?">
+                                       
 
-                            <div class="input-group">
-                                <input type="text" placeholder="What do you need?">
-                                <button type="submit" name="submit"><i class="ti-search"></i></button>
+                                        <button type="submit"><i class="ti-search"></i></button>
+                                    </div>
+                                    
+                                    </div>
+                                </form>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-lg-3 text-right col-md-3">
@@ -111,29 +115,55 @@
                                     <span>1</span>
                                 </a>
                             </li> -->
-
-                            <?php
-                            if (!empty($_SESSION['cart'])) {
-                                $qty = count($_SESSION['cart']); ?>
-                                <li class="cart-icon">
-                                    <a href="shop.php">
-                                        <i class="icon_bag_alt"></i>
-                                        <span><?php echo $qty ?></span>
-                                    </a>
-
-                                <?php } else { ?>
-                                <li class="heart-icon">
-                                    <a href="#">
-                                        <i class="icon_heart_alt"></i>
-                                        <span>1</span>
-                                    </a>
-                                </li>
-
-                            <?php }   ?>
-
-                            <?php if (isset($_SESSION['name'])) { ?>
-                                <li class="cart-price" style="color:#E7AB3C;">Welcome <?php echo $_SESSION['name'] ?></li>
-                            <?php } ?>
+                            <li class="cart-icon">
+                                <a href="shopping-cart.php">
+                                    <i class="icon_bag_alt"></i>
+                                    <span></span>
+                                </a>
+                                <!-- <div class="cart-hover">
+                                    <div class="select-items">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
+                                                    <td class="si-text">
+                                                        <div class="product-selected">
+                                                            <p>$60.00 x 1</p>
+                                                            <h6>Kabino Bedside Table</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td class="si-close">
+                                                        <i class="ti-close"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="si-pic"><img src="img/select-product-2.jpg" alt=""></td>
+                                                    <td class="si-text">
+                                                        <div class="product-selected">
+                                                            <p>$60.00 x 1</p>
+                                                            <h6>Kabino Bedside Table</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td class="si-close">
+                                                        <i class="ti-close"></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="select-total">
+                                        <span>total:</span>
+                                        <h5>$120.00</h5>
+                                    </div>
+                                    <div class="select-button">
+                                        <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                    </div>
+                                </div> -->
+                            </li>
+                            <?php if(isset($_SESSION['name'])){?>
+                            <li class="cart-price" style="color:#E7AB3C;">Welcome <?php echo $_SESSION['name'] ?></li>
+                            <?php }?>
                         </ul>
                     </div>
                 </div>
@@ -149,7 +179,7 @@
                                 <?php
                                 $query  = "SELECT * FROM category";
                                 $result = mysqli_query($conn, $query);
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                while ($row = mysqli_fetch_assoc($result)){
                                 ?>
                                     <li><a href="category.php?catname=<?php echo $row['category_name']; ?>"><?php echo $row['category_name']; ?>'s</a></li>
                                 <?php
@@ -163,15 +193,16 @@
                         <li><a href="./contact.php">Contact Us</a></li>
                         <li><a href="#">Account</a>
                             <ul class="dropdown">
-                                <?php if (!isset($_SESSION['id'])) { ?>
-                                    <li><a href="./login.php">Log in</a></li>
-                                    <li><a href="./register.php">Register</a></li>
-                                <?php } else { ?>
+                            <?php if(!isset($_SESSION['id'])){?>
+                                <li><a href="./login.php">Log in</a></li>
+                                <li><a href="./register.php">Register</a></li>
+                                <?php }
+                                else{?>
                                     <li><a href="./profile.php">Profile</a></li>
-                                    <li><a href="./logout.php">Log out</a></li>
-
-                                <?php } ?>
-
+                                <li><a href="./logout.php">Log out</a></li>
+                                
+                               <?php }?>
+                                
                             </ul>
                         </li>
                     </ul>

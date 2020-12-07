@@ -1,15 +1,8 @@
 <?php
-ob_start();
 include('connection.php');
 include('header.php');
 $proid = $_GET['proid'];
 $subname = $_GET['subname'];
-if (!isset($_GET['proid'])) {
-    header("location:shop.php");
-}
-if (!isset($_GET['subname'])) {
-    header("location:shop.php");
-}
 ?>
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
@@ -141,10 +134,7 @@ if (!isset($_GET['subname'])) {
                                     <div class="pro-qty">
                                         <input type="text" value="1">
                                     </div>
-                                    <button onclick="location.href='carthandler.php?cart_id=<?php echo $row['products_id'] ?>&cart_name=<?php echo $row['products_name'] ?>&cart_price=<?php echo $row['products_price'] ?>'" type="submit" name="Add to Cart" class="primary-btn pd-cart">
-                                        Add to cart
-                                    </button>
-
+                                    <a href="#" class="primary-btn pd-cart">Add To Cart</a>
                                 </div>
                                 <ul class="pd-tags">
                                     <li><span>CATEGORIES</span>: More Accessories , Wallets & Cases</li>
