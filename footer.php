@@ -38,8 +38,8 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="footer-left">
-                        <div class="footer-logo">
-                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        <div class="footer-logo" style="padding-left:0px;">
+                            <a href="#"><img src="img/footer-logo2.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: Jordan _ Amman Mecca St.60</li>
@@ -59,8 +59,9 @@
                         <h5>Information</h5>
                         <ul>
                             <!-- <li><a href="#">About Us</a></li> -->
-                            <li><a href="shopping-cart.php">Checkout</a></li>
+                            <li><a href="check-out.php">Checkout</a></li>
                             <li><a href="contact.php">Contact</a></li>
+                            <li><a href="shop.php">Shop</a></li>
                             <!-- <li><a href="#">Serivius</a></li> -->
                         </ul>
                     </div>
@@ -70,9 +71,8 @@
                         <h5>My Account</h5>
                         <ul>
                             <li><a href="profile.php">My Account</a></li>
-                            <li><a href="contact.php">Contact</a></li>
                             <li><a href="shopping-cart.php">Shopping Cart</a></li>
-                            <li><a href="shop.php">Shop</a></li>
+                            
                         </ul>
                     </div>
                 </div>

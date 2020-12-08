@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 include('connection.php');
 include('header.php');
 ?>
@@ -24,21 +26,40 @@ include('header.php');
             <div class="col-lg-12">
                 <div class="faq-accordin">
                     <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-heading active">
-                                <a class="active" data-toggle="collapse" data-target="#collapseOne">
-                                    Is There Anything I Should Bring?
-                                </a>
-                            </div>
-                            <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-center">
+	<!-- Button HTML (to Trigger Modal) -->
+	<a href="#myModal" class="trigger-btn" data-toggle="modal">Click to Open Confirm Modal</a>
+</div>
+
+
+
+<!-- Modal HTML -->
+
+                                // header("location:shopping-cart-empty.php");
+                                
+                                    <div id='myModal' class='modal fade'>
+   <div class='modal-dialog modal-confirm'>
+       <div class='modal-content'>
+           <div class='modal-header'>
+               <div class='icon-box'>
+                   <i class='material-icons'>&#xE876;</i>
+               </div>				
+               <h4 class='modal-title w-100'>Awesome!</h4>	
+           </div>
+           <div class='modal-body'>
+               <p class='text-center'>Your booking has been confirmed. Check your email for detials.</p>
+           </div>
+ <div class='modal-footer'>
+           
+             <button class='btn btn-success btn-block' data-dismiss='modal'>OK</button>
+
+           </div>
+       </div>
+   </div>
+</div> 
+                            
+
+
                         <div class="card">
                             <div class="card-heading">
                                 <a data-toggle="collapse" data-target="#collapseTwo">

@@ -1,5 +1,6 @@
 <?php
 ob_start();
+session_start();
 include('connection.php');
 include('header.php');
 $tagname = $_GET['tagname'];
@@ -150,16 +151,15 @@ if(!isset($_GET['tagname'])){
                         ?>
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="admin/<?php echo $row['products_image'] ?>" alt="">
+                                    <div class="pi-pic fixedBoxImglargeTag">
+                                        <img class="ImgSize" src="admin/<?php echo $row['products_image'] ?>" alt="">
                                         <div class="sale pp-sale"><?php echo $row['category_tag'] ?></div>
                                         <div class="icon">
                                             <i class="icon_heart_alt"></i>
                                         </div>
                                         <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                             <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="pi-text">

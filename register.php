@@ -19,24 +19,23 @@ if (isset($_POST['register'])) {
     $userPassword = $_POST['userPassword'];
     $userEmail = $_POST['userEmail'];
     if (!empty($userName) && !empty($userPassword) && !empty($userEmail)) {
-    // Take Data From Web Form 
-    $sql="select * from user where (user_email='$userEmail');";
-    $res=mysqli_query($conn,$sql);
-    if (mysqli_num_rows($res) > 0) {
-        
-        $row = mysqli_fetch_assoc($res);
-        if($userEmail==isset($row['user_email']))
-        {
-        $emailError = "Email Already Exists";
-        }
-		} else {
+        // Take Data From Web Form 
+        $sql = "select * from user where (user_name='$userName');";
+        $res = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($res) > 0) {
 
-    $query = "insert into user(user_name,user_email,user_password,user_image)
+            $row = mysqli_fetch_assoc($res);
+            if ($userName == isset($row['user_name'])) {
+                $userError = "Username Already Exists";
+            }
+        } else {
+
+            $query = "insert into user(user_name,user_email,user_password,user_image)
               values('$userName','$userEmail','$userPassword','$path$image_name')";
-    mysqli_query($conn, $query);
-    header("location:login.php");
-}
-}
+            mysqli_query($conn, $query);
+            header("location:login.php");
+        }
+    }
 }
 ?>
 <!-- Breadcrumb Section Begin -->
@@ -62,17 +61,18 @@ if (isset($_POST['register'])) {
                 <div class="register-form">
                     <h2>Register</h2>
                     <form action="#" method="post" enctype="multipart/form-data">
-                    
+
                         <div class="group-input">
                             <label for="username">Username *</label>
                             <input type="text" id="username" name="userName" required="required">
+                            <div class="alert alert ">
+                                <h5 class="text-danger"> <?php echo ((isset($userError) != '') ? $userError : ''); ?></h5>
+                            </div>
                         </div>
                         <div class="group-input">
                             <label for="email">Email address *</label>
                             <input type="email" id="email" name="userEmail" required="required">
-                            <div class="alert alert ">
-                        <h5 class="text-danger"> <?php echo ((isset($emailError) != '')?$emailError : ''); ?></h5>
-                    </div>
+
                         </div>
                         <div class="group-input">
                             <label for="pass">Password *</label>

@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   if ($check){
                 if (isset($check)) {
                     $_SESSION['id'] = $check['user_id'];
+                    $_SESSION['welcomename'] = $check['user_name'];
                     header('Location:index.php');
                     die;
                 
@@ -125,7 +126,7 @@ $empty_error="**username / password Required";
                                            <?php }?>       
                             <div class="group-input">
                                 <label for="pass">Password </label>
-                                <input type="text" id="pass" name="login_pass">
+                                <input type="password" id="pass" name="login_pass">
                             </div>
                             <?php if(isset($error_pass)){?>
                                             <div class='alert alert-danger' style="color:red;font-size: 15px"><?php echo $error_pass?></div>

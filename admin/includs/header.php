@@ -4,9 +4,11 @@ ob_start();
 session_start();
 // if(isset($_SESSION['superadmin'])){
 //     header("location:./index.php");
-// }elseif(isset($_SESSION['admin'])){
+// }
+// elseif(isset($_SESSION['admin'])){
 //     header("location:./manage_user.php");
-// }else{
+// }
+// else{
 //     header("location:../login.php");
 // };
 ?>

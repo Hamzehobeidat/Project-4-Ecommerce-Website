@@ -1,5 +1,6 @@
 <?php
 ob_start();
+session_start();
 include('connection.php');
 include('header.php');
 $catname = $_GET['catname'];
@@ -92,9 +93,8 @@ if (!isset($_GET['catname'])) {
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
@@ -163,9 +163,8 @@ if (!isset($_GET['catname'])) {
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
@@ -263,9 +262,8 @@ if (!isset($_GET['catname'])) {
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">

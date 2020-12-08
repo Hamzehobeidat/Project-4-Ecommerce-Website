@@ -1,11 +1,18 @@
 <?php
 session_start();
+if(!isset($_SESSION['welcomename'])){
+    header("location:./index.php");
+}
 include('connection.php');
 $_SESSION['id'];
 $query = "select * from user where user_id ={$_SESSION['id']}";
 $resultuser = mysqli_query($conn,$query);
 $rowuser = mysqli_fetch_assoc($resultuser);
 
+?>
+
+<?php
+include('header.php');
 ?>
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
@@ -23,9 +30,7 @@ $rowuser = mysqli_fetch_assoc($resultuser);
 <!-- Breadcrumb Section Begin -->
 
 <!-- Faq Section Begin -->
-<?php
-include('header.php');
-?>
+
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>

@@ -1,6 +1,11 @@
 <?php
+ob_start();
 include('connection.php');
 include('header.php');
+$query  = $_GET['search'];
+if (!isset($_GET['search'])) {
+    header("location:shop.php");
+}
 ?>
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
@@ -41,7 +46,6 @@ include('header.php');
                         ?>
                     </div>
                 </div>
-
 
                 <div class="filter-widget">
                     <!-- <h4 class="fw-title">Category</h4> -->
@@ -126,7 +130,7 @@ if (strlen($query) >= $min_length) {
         $term = trim($term);
         if (!empty($term)) {
     $raw_results = "SELECT * FROM products 
-     WHERE (`products_name`  LIKE '%$term%' OR `category_tag`  LIKE '%$term%'  OR `category_name`  LIKE '%$term%'  OR `sub_name`  LIKE '%$term%')";
+     WHERE (`products_name`  LIKE '%$term%' OR `category_tag`  LIKE '%$term%'  OR `category_name`  LIKE '%$term%'  OR `sub_name`  LIKE '%$term%' )";
             
         }
     }
@@ -137,14 +141,6 @@ if (strlen($query) >= $min_length) {
 
         while ($results = mysqli_fetch_array($res)) { 
             //  $results = mysqli_fetch_array($raw_results); ?>
-
-
-
-
-
-
-            
-                       
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
@@ -154,7 +150,7 @@ if (strlen($query) >= $min_length) {
                                             <i class="icon_heart_alt"></i>
                                         </div>
                                         <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                            <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                             <li class="quick-view"><a href="product.php?proid=<?php echo $results['products_id']; ?>&&subname=<?php echo $results['sub_name']; ?>">+ Quick View</a></li>
                                             <!-- <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li> -->
                                         </ul>
@@ -166,9 +162,7 @@ if (strlen($query) >= $min_length) {
                                             $<?php echo $results['products_price'] ?>
                                             <span></span>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
 

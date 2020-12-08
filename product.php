@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('connection.php');
 include('header.php');
 $proid = $_GET['proid'];
@@ -130,12 +131,15 @@ $subname = $_GET['subname'];
                                         <label for="xl-size">xs</label>
                                     </div>
                                 </div>
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
+                                <form method="post" action="shopping-cart.php?action=add&pid=<?php echo $row['products_id']; ?>">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="1" name="quantity" size="2">
+                                        </div>
+                                        <!-- <a href="#" class="primary-btn pd-cart">Add To Cart</a> -->
+                                        <input type="submit" value="Add to Cart" class="btnAddAction primary-btn pd-cart" />
                                     </div>
-                                    <a href="#" class="primary-btn pd-cart">Add To Cart</a>
-                                </div>
+                                </form>
                                 <ul class="pd-tags">
                                     <li><span>CATEGORIES</span>: More Accessories , Wallets & Cases</li>
                                     <li><span>TAGS</span>: Clothing, Sale, New Arrival, Christmas, Woman</li>
@@ -170,13 +174,14 @@ $subname = $_GET['subname'];
             ?>
                 <div class="col-lg-3 col-sm-6">
                     <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="admin/<?php echo $row['products_image']; ?>" alt="">
+                        <div class="pi-pic fixedBoxImglargeTag">
+                            <img class="ImgSize" src="admin/<?php echo $row['products_image']; ?>" alt="">
                             <div class="sale"><?php echo $row['category_tag']; ?></div>
                             <div class="icon">
                                 <i class="icon_heart_alt"></i>
                             </div>
                             <ul>
+                                <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                 <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
                             </ul>
                         </div>

@@ -40,7 +40,30 @@ include('header.php');
     </div>
 </section>
 <!-- Hero Section End -->
-
+<div class="banner-section spad">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-banner">
+                <img src="img/banner-7.jpg" alt="">
+                    <div class="inner-text" style="padding-top:15px;">
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_tag='Christmas';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a  href="tagpage.php?tagname=<?php echo $row['category_tag']; ?>">
+                                <h4 >New Collection</h4>
+                            </a>
+                        <?php
+                        };
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Banner Section Begin -->
 <div class="banner-section spad">
     <div class="container-fluid">
@@ -49,15 +72,17 @@ include('header.php');
                 <div class="single-banner">
                     <img src="img/banner-1.jpg" alt="">
                     <div class="inner-text">
-                    <?php
-                    $query  = "SELECT * FROM category WHERE category_name='Men';";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>"><h4>Men’s</h4></a>
-                    <?php
-                    };
-                    ?>             
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_name='Men';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a href="category.php?catname=<?php echo $row['category_name'] ?>">
+                                <h4>Men’s</h4>
+                            </a>
+                        <?php
+                        };
+                        ?>
                     </div>
                 </div>
             </div>
@@ -65,15 +90,17 @@ include('header.php');
                 <div class="single-banner">
                     <img src="img/banner-2.jpg" alt="">
                     <div class="inner-text">
-                    <?php
-                    $query  = "SELECT * FROM category WHERE category_name='Women';";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>"><h4>Women’s</h4></a>
-                    <?php
-                    };
-                    ?>                   
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_name='Women';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a href="category.php?catname=<?php echo $row['category_name'] ?>">
+                                <h4>Women’s</h4>
+                            </a>
+                        <?php
+                        };
+                        ?>
                     </div>
                 </div>
             </div>
@@ -81,21 +108,24 @@ include('header.php');
                 <div class="single-banner">
                     <img src="img/banner-3.jpg" alt="">
                     <div class="inner-text">
-                    <?php
-                    $query  = "SELECT * FROM category WHERE category_name='Kids';";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>"><h4>Kid’s</h4></a>
-                    <?php
-                    };
-                    ?>     
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_name='Kids';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a href="category.php?catname=<?php echo $row['category_name'] ?>">
+                                <h4>Kid’s</h4>
+                            </a>
+                        <?php
+                        };
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Banner Section End -->
 
 <!-- Women Banner Section Begin -->
@@ -104,14 +134,14 @@ include('header.php');
         <div class="row">
             <div class="col-lg-3">
                 <div class="product-large set-bg" data-setbg="img/products/women-large.jpg">
-                <?php
+                    <?php
                     $query  = "SELECT * FROM category WHERE category_name='Women';";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
-                    <h2><?php echo $row['category_name'] ?>’s</h2>
+                        <h2><?php echo $row['category_name'] ?>’s</h2>
 
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>&&tagimg=<?php echo $row['category_tag'] ?>">Discover More</a>
+                        <a href="category.php?catname=<?php echo $row['category_name'] ?>&&tagimg=<?php echo $row['category_tag'] ?>">Discover More</a>
                     <?php
                     };
                     ?>
@@ -120,15 +150,17 @@ include('header.php');
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                    <?php
-                    $query  = "SELECT * FROM category WHERE category_name='Women';";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>"><li class="active">Women’s Clothings</li></a>
-                    <?php
-                    };
-                    ?>    
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_name='Women';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a href="category.php?catname=<?php echo $row['category_name'] ?>">
+                                <li class="active">Women’s Clothings</li>
+                            </a>
+                        <?php
+                        };
+                        ?>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
@@ -137,15 +169,15 @@ include('header.php');
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="admin/<?php echo $row['products_image'] ?>" alt="">
+                        <div class="product-item ">
+                            <div class="pi-pic fixedBoxImglarge">
+                                <img class="ImgSize" src="admin/<?php echo $row['products_image'] ?>" alt="">
                                 <div class="sale"><?php echo $row['category_tag'] ?></div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
                                 </ul>
                             </div>
@@ -242,20 +274,19 @@ include('header.php');
         <div class="col-lg-6 text-center">
             <div class="section-title">
                 <h2>Deal Of The Week</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,
-                    consectetur adipisicing elit </p>
+                <p>Complete your look! We've collected backpacks and bags for any taste and budget. Treat yourself and your loved ones before the offer ends! </p>
                 <div class="product-price">
                     $35.00
-                    <span>/ HanBag</span>
+                    <span>/ Hand Bag</span>
                 </div>
             </div>
             <div class="countdown-timer" id="countdown">
                 <div class="cd-item">
-                    <span>26</span>
+                    <span>7</span>
                     <p>Days</p>
                 </div>
                 <div class="cd-item">
-                    <span>12</span>
+                    <span>10</span>
                     <p>Hrs</p>
                 </div>
                 <div class="cd-item">
@@ -280,15 +311,17 @@ include('header.php');
             <div class="col-lg-8">
                 <div class="filter-control">
                     <ul>
-                    <?php
-                    $query  = "SELECT * FROM category WHERE category_name='Men';";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>"><li class="active">Men’s Clothings</li></a>
-                    <?php
-                    };
-                    ?>    
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_name='Men';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a href="category.php?catname=<?php echo $row['category_name'] ?>">
+                                <li class="active">Men’s Clothings</li>
+                            </a>
+                        <?php
+                        };
+                        ?>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
@@ -298,16 +331,15 @@ include('header.php');
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                         <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="admin/<?php echo $row['products_image'] ?>" alt="">
+                            <div class="pi-pic fixedBoxImglarge">
+                                <img class="pi-pic ImgSize" src="admin/<?php echo $row['products_image'] ?>" alt="">
                                 <div class="sale"><?php echo $row['category_tag'] ?></div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
@@ -392,16 +424,17 @@ include('header.php');
                     </div> -->
                 </div>
             </div>
+            
             <div class="col-lg-3 offset-lg-1">
                 <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg">
-                <?php
+                    <?php
                     $query  = "SELECT * FROM category WHERE category_name='Men';";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
-                    <h2><?php echo $row['category_name'] ?>’s</h2>
+                        <h2><?php echo $row['category_name'] ?>’s</h2>
 
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>&&tagimg=<?php echo $row['category_tag'] ?>">Discover More</a>
+                        <a href="category.php?catname=<?php echo $row['category_name'] ?>&&tagimg=<?php echo $row['category_tag'] ?>">Discover More</a>
                     <?php
                     };
                     ?>
@@ -434,14 +467,14 @@ include('header.php');
         <div class="row">
             <div class="col-lg-3">
                 <div class="product-large set-bg" data-setbg="admin/img/Child.jpg">
-                <?php
+                    <?php
                     $query  = "SELECT * FROM category WHERE category_name='Kids';";
                     $result = mysqli_query($conn, $query);
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
-                    <h2><?php echo $row['category_name'] ?>’s</h2>
+                        <h2><?php echo $row['category_name'] ?>’s</h2>
 
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>&&tagimg=<?php echo $row['category_tag'] ?>">Discover More</a>
+                        <a href="category.php?catname=<?php echo $row['category_name'] ?>&&tagimg=<?php echo $row['category_tag'] ?>">Discover More</a>
                     <?php
                     };
                     ?>
@@ -450,15 +483,17 @@ include('header.php');
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
                     <ul>
-                    <?php
-                    $query  = "SELECT * FROM category WHERE category_name='Kids';";
-                    $result = mysqli_query($conn, $query);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <a href="category.php?catname=<?php echo $row['category_name'] ?>"><li class="active">Kids’s Clothings</li></a>
-                    <?php
-                    };
-                    ?> 
+                        <?php
+                        $query  = "SELECT * FROM category WHERE category_name='Kids';";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <a href="category.php?catname=<?php echo $row['category_name'] ?>">
+                                <li class="active">Kids’s Clothings</li>
+                            </a>
+                        <?php
+                        };
+                        ?>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
@@ -468,16 +503,15 @@ include('header.php');
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                         <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="admin/<?php echo $row['products_image'] ?>" alt="">
+                            <div class="pi-pic fixedBoxImglarge">
+                                <img class="ImgSize" src="admin/<?php echo $row['products_image'] ?>" alt="">
                                 <div class="sale"><?php echo $row['category_tag'] ?></div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
                                     <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">

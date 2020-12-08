@@ -1,11 +1,14 @@
 <?php
 session_start();
+if (!isset($_SESSION['welcomename'])) {
+    header("location:./index.php");
+}
 include('connection.php');
-  $query = "select * from user where user_id ={$_GET['id']}";
-  $resultuser = mysqli_query($conn,$query);
-  $rowuser = mysqli_fetch_assoc($resultuser);
+$query = "select * from user where user_id ={$_GET['id']}";
+$resultuser = mysqli_query($conn, $query);
+$rowuser = mysqli_fetch_assoc($resultuser);
 
-  if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $name = $_POST['user_name'];
     $email = $_POST['user_email'];
     $pass = $_POST['user_password'];
@@ -14,21 +17,20 @@ include('connection.php');
     $country = $_POST['user_country'];
     $image_name = $_FILES['user_image']['name'];
     $tmp_name = $_FILES['user_image']['tmp_name'];
-    
+
     $path = './img/user_image/';
     if ($image_name) {
-        $user_image = $path.$image_name;
+        $user_image = $path . $image_name;
     } else {
         $user_image = $rowuser['user_image'];
     }
-  
-    $query ="SELECT user_email FROM user";
-        
-        if ($rowuser['user_email'] ==$email){
-            $emailError = "Email Already Exists";
-        }
-        else{
-            $query = "update user set 
+
+    $query = "SELECT user_name FROM user";
+
+    if ($rowuser['user_name'] == $name) {
+        $userError = "Username Already Exists";
+    } else {
+        $query = "update user set 
             user_name='$name',
             user_email='$email', 
             user_password='$pass',
@@ -38,14 +40,12 @@ include('connection.php');
             user_image='$user_image' where user_id= {$_GET['id']}";
 
 
-            mysqli_query($conn, $query);
-            move_uploaded_file($tmp_name, $path.$image_name);
-            header("location:profile.php");
-        }
+        mysqli_query($conn, $query);
+        move_uploaded_file($tmp_name, $path . $image_name);
+        header("location:profile.php");
+    }
+}
 
-
-  }
-  
 ?>
 
 <?php
@@ -67,31 +67,31 @@ include('header.php');
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating"> Name</label>
-                                        <input type="text" name="user_name" class="form-control" value="<?php echo $rowuser['user_name']?>">
+                                        <input type="text" name="user_name" class="form-control" value="<?php echo $rowuser['user_name'] ?>">
                                     </div>
+                                    <?php if (isset($userError)) { ?>
+                                        <div class='alert alert-danger' style="color:red;font-size: 15px"><?php echo $userError ?></div>
+                                    <?php } ?>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Email address</label>
-                                        <input type="email" name="user_email" class="form-control"$emailError = "Email Already Exists"; value="<?php echo $rowuser['user_email']?>">
+                                        <input type="email" name="user_email" class="form-control" $userError="Username Already Exists" ; value="<?php echo $rowuser['user_name'] ?>">
                                     </div>
-                                    <?php if(isset($emailError)){?>
-                                            <div class='alert alert-danger' style="color:red;font-size: 15px"><?php echo $emailError?></div>
-                                           <?php }?>
                                 </div>
-                                
+
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Password</label>
-                                        <input type="password" name="user_password" class="form-control" value="<?php echo $rowuser['user_password']?>">
+                                        <input type="password" name="user_password" class="form-control" value="<?php echo $rowuser['user_password'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Phone Number</label>
-                                        <input type="text" name="user_phone" class="form-control" value="<?php echo $rowuser['user_phone']?>">
+                                        <input type="text" name="user_phone" class="form-control" value="<?php echo $rowuser['user_phone'] ?>">
                                     </div>
                                 </div>
                             </div>
@@ -99,13 +99,13 @@ include('header.php');
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Country</label>
-                                        <input type="text" name="user_country" class="form-control" value="<?php echo $rowuser['user_country']?>">
+                                        <input type="text" name="user_country" class="form-control" value="<?php echo $rowuser['user_country'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Address</label>
-                                        <input type="text" name="user_address" class="form-control" value="<?php echo $rowuser['user_addres']?>">
+                                        <input type="text" name="user_address" class="form-control" value="<?php echo $rowuser['user_addres'] ?>">
                                     </div>
                                 </div>
                             </div>
