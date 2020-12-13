@@ -4,6 +4,77 @@ session_start();
 include('connection.php');
 include('header.php');
 ?>
+
+
+
+<?php
+
+if (!isset($_GET['pid'])) {
+    $pid = $_GET["pid"] = null;
+    // header("location:shopping-cart-empty.php");
+}
+// elseif (isset($_GET['name'])) {
+//     header("location:shopping-cart.php");
+// }
+
+if (!empty($_GET["action"])) {
+    switch ($_GET["action"]) {
+            //code for adding product in cart
+        case "add":
+            if (!empty($_POST["quantity"])) {
+                $pid = $_GET["pid"];
+
+
+                // $result = mysqli_query($conn, "SELECT * FROM products WHERE products_id='$pid'");
+                // while ($productById = mysqli_fetch_array($result)) {
+
+                $query  = "SELECT * FROM products WHERE products_id='$pid';";
+                $result = mysqli_query($conn, $query);
+                while ($productById = mysqli_fetch_assoc($result)) {
+
+
+
+                    $itemArray = array($productById["products_id"] => array('name' => $productById["products_name"], 'quantity' => $_POST["quantity"], 'price' => $productById["products_price"], 'image' => $productById["products_image"]));
+
+                    if (!empty($_SESSION["cart_item"])) {
+                        if (in_array($productById["products_id"], array_keys($_SESSION["cart_item"]))) {
+                            foreach ($_SESSION["cart_item"] as $k => $v) {
+                                if ($productById["products_id"] == $k) {
+                                    if (empty($_SESSION["cart_item"][$k]["quantity"])) {
+                                        $_SESSION["cart_item"][$k]["quantity"] = 0;
+                                    }
+                                    $_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+                                }
+                            }
+                        } else {
+                            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
+                        }
+                    } else {
+                        $_SESSION["cart_item"] = $itemArray;
+                    }
+                }
+                header("Location:shop.php");
+            }
+            break;
+        case "remove":
+            if (!empty($_SESSION["cart_item"])) {
+                foreach ($_SESSION["cart_item"] as $k => $v) {
+                    if ($_GET["name"] == $k)
+                        unset($_SESSION["cart_item"][$k]);
+                    if (empty($_SESSION["cart_item"]))
+                        unset($_SESSION["cart_item"]);
+                }
+            }
+            break;
+            // code for if cart is empty
+        case "empty":
+            unset($_SESSION["cart_item"]);
+            break;
+    }
+}
+
+?>
+
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -109,14 +180,25 @@ include('header.php');
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic fixedBoxImglargeTag">
-                                        <img class="pi-pic ImgSize" src="admin/<?php echo $row['products_image'] ?>" alt="">
+                                        <img class="pi-pic ImgSize" src="admin/<?php echo $row['products_image'] ?>" style="width:100%;height:100%;" alt="">
                                         <div class="sale pp-sale"><?php echo $row['category_tag'] ?></div>
                                         <div class="icon">
                                             <i class="icon_heart_alt"></i>
                                         </div>
                                         <ul>
-                                            <li class="w-icon active"><a href="shopping-cart.php"><i class="icon_bag_alt"></i></a></li>
+
+                                        <form method="post" action="shop.php?action=add&pid=<?php echo $row['products_id']; ?>">
+                                            <div class="quantity">
+                                            
+                                                <!-- <a href="#" class="primary-btn pd-cart">Add To Cart</a> -->
+                                                <input type="hidden" value="1" name="quantity" size="2">
+                                                <!-- <button type="submit"><li class="w-icon active"><i class="icon_bag_alt"></i></li></button> -->
+
+                                            <button type="submit"style="padding:0;border:none"><li class="w-icon active" ><a style="width:100%;height:100%;"><i class="icon_bag_alt" style="width:100%;height:100%;"></i></a></li></button>
                                             <li class="quick-view"><a href="product.php?proid=<?php echo $row['products_id']; ?>&&subname=<?php echo $row['sub_name']; ?>">+ Quick View</a></li>
+                                            </div>
+                                         </form>
+                                            
 
                                         </ul>
                                     </div>
@@ -133,207 +215,6 @@ include('header.php');
                                 </div>
                             </div>
 
-                            <!-- <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-2.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Coat</div>
-                                    <a href="#">
-                                        <h5>Guangzhou sweater</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $13.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-3.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Shoes</div>
-                                    <a href="#">
-                                        <h5>Guangzhou sweater</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $34.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-4.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Coat</div>
-                                    <a href="#">
-                                        <h5>Microfiber Wool Scarf</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $64.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-5.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Shoes</div>
-                                    <a href="#">
-                                        <h5>Men's Painted Hat</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $44.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-6.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Shoes</div>
-                                    <a href="#">
-                                        <h5>Converse Shoes</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $34.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-7.jpg" alt="">
-                                    <div class="sale pp-sale">Sale</div>
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Towel</div>
-                                    <a href="#">
-                                        <h5>Pure Pineapple</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $64.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-8.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Coat</div>
-                                    <a href="#">
-                                        <h5>2 Layer Windbreaker</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $44.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="product-item">
-                                <div class="pi-pic">
-                                    <img src="img/products/product-9.jpg" alt="">
-                                    <div class="icon">
-                                        <i class="icon_heart_alt"></i>
-                                    </div>
-                                    <ul>
-                                        <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">Shoes</div>
-                                    <a href="#">
-                                        <h5>Converse Shoes</h5>
-                                    </a>
-                                    <div class="product-price">
-                                        $34.00
-                                        <span>$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <?php
                         };
                         ?>

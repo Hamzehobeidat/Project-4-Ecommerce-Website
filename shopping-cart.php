@@ -47,15 +47,27 @@ if (!empty($_GET["action"])) {
                         $_SESSION["cart_item"] = $itemArray;
                     }
                 }
+                header("Location:shop.php");
+                
             }
             break;
         case "remove":
+
+            // if(isset($_GET['key'])){
+            //     $key = $_GET['key'];
+                
+            //     unset($_SESSION["cart_item"]["$key"]);
+            //     // header("location:cart.php");
+            //     }
+
+                
+
             if (!empty($_SESSION["cart_item"])) {
                 foreach ($_SESSION["cart_item"] as $k => $v) {
                     if ($_GET["name"] == $k)
                         unset($_SESSION["cart_item"][$k]);
-                    if (empty($_SESSION["cart_item"]))
-                        unset($_SESSION["cart_item"]);
+                    // if (empty($_SESSION["cart_item"]))
+                    //     unset($_SESSION["cart_item"]);
                 }
             }
             break;
@@ -139,7 +151,7 @@ if (!empty($_GET["action"])) {
                         </thead>
                         <tbody>
                             <?php
-                                    foreach ($_SESSION["cart_item"] as $item) {
+                                    foreach ($_SESSION["cart_item"] as $key => $item) {
                                         $item_price = $item["quantity"] * $item["price"];
                             ?>
                                 <tr>
@@ -160,7 +172,7 @@ if (!empty($_GET["action"])) {
                                     <!-- <td class="close-td first-row"><i class="ti-close"></i></td> -->
 
                                     <td class="close-td first-row">
-                                        <a href="shopping-cart.php?action=remove&name=<?php echo $item["name"]; ?>" class="primary-btn pd-cart"><i class="ti-close"></i></a></td>
+                                        <a href="<?php echo "shopping-cart.php?action=remove&name=$key"?>" class="primary-btn pd-cart"><i class="ti-close"></i></a></td>
                                 </tr>
 
                             <?php
@@ -185,7 +197,7 @@ if (!empty($_GET["action"])) {
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="cart-buttons">
-                            <a href="#" class="primary-btn continue-shop">Continue shopping</a>
+                            <a href="s" class="primary-btn continue-shop">Continue shopping</a>
                             <a href="#" class="primary-btn up-cart">Update cart</a>
                         </div>
                         <div class="discount-coupon">

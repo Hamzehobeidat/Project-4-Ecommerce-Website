@@ -4,13 +4,18 @@ include('connection.php');
 ?>
 <?php
 
+    //check if user coming from HTTp request
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
         $username = $_POST['login_name'];
+
         $password = $_POST['login_pass'];
+
         $sql = "SELECT * FROM admin WHERE admin_name = '$username'";
         $result = mysqli_query($conn, $sql);
         $check = mysqli_fetch_array($result);
+        
         
         if(!empty($username)&&!empty($password)){
             
@@ -51,26 +56,38 @@ include('connection.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $username = $_POST['login_name'];
-     $password = $_POST['login_pass'];
+    $password = $_POST['login_pass'];
     
     $sql = "SELECT * FROM user WHERE user_name = '$username'";
+
     $result = mysqli_query($conn, $sql);
     $check = mysqli_fetch_array($result);
+
     if(!empty($username)&&!empty($password)){
+      
         
-            if ($check) {
+            if ($check > 0) {
                 $sql = "SELECT * FROM user WHERE user_name = '$username' AND user_password = '$password' ";
+
                  $result = mysqli_query($conn, $sql);
+
                   $check = mysqli_fetch_array($result);
-                  if ($check){
-                if (isset($check)) {
-                    $_SESSION['id'] = $check['user_id'];
-                    $_SESSION['welcomename'] = $check['user_name'];
-                    header('Location:index.php');
-                    die;
-                
-                }
+
+                  if ($check > 0){
+
+                    if (isset($check)) {
+                        
+                        $_SESSION['id'] = $check['user_id'];
+
+                        $_SESSION['welcomename'] = $check['user_name'];
+
+                        header('Location:index.php');
+
+                        die;
+                    
+                    }
                 else{
                     $error_pass="**The password you’ve entered is incorrect.";
                     }
@@ -116,7 +133,7 @@ $empty_error="**username / password Required";
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>Login</h2>
-                        <form method="POST">
+                        <form method="POST" action = <?php echo $_SERVER['PHP_SELF']?>>
                             <div class="group-input">
                                 <label for="username">Username</label>
                                 <input type="text" id="username" name="login_name">

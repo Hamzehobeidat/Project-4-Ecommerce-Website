@@ -3,6 +3,7 @@ ob_start();
 session_start();
 include('connection.php');
 include('header.php');
+
 $catname = $_GET['catname'];
 if (!isset($_GET['catname'])) {
     header("location:shop.php");
@@ -30,7 +31,7 @@ if (!isset($_GET['catname'])) {
         </div>
     </div>
 </div>
-<!-- Breadcrumb Section Begin -->
+<!-- Breadcrumb Section End -->
 
 <div class="partner-logo" style="margin-bottom: 1.4rem; background-color:#F4F2E6;">
     <div class="container">

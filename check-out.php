@@ -62,18 +62,38 @@ include('header.php');
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="place-order">
                         <h4>Your Order</h4>
                         <div class="order-total">
                             <ul class="order-table">
                                 <li>Product <span>Total</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$120.00</span></li>
-                                <li class="fw-normal">Subtotal <span>$240.00</span></li>
-                                <li class="total-price">Total <span>$240.00</span></li>
-                            </ul>
+
+                            <?php 
+                            $total_price = 0;
+                                $item = $_SESSION["cart_item"];
+                                foreach($item as $key => $value){
+
+                                 $total_price += ($value["price"] * $value["quantity"]);
+                            
+                            ?>
+                            
+                                <li class="fw-normal"><?php echo $value["name"]; ?><span>$<?php echo $value["price"]; ?></span></li>
+
+                                <?php
+                                
+                             ?>
+                                
+                                
+                           
+
+                    <?php }
+                    
+                    ?>
+                    <li class="fw-normal">Subtotal <span>$<?php echo number_format($total_price, 2); ?></span></li>
+                    <li class="total-price">Total <span>$<?php  echo  number_format($total_price, 2);?></span></li>
+                    </ul>
                             <div class="payment-check">
                                 <div class="pc-item">
                                     <label for="pc-check">
@@ -83,19 +103,19 @@ include('header.php');
                                     </label>
                                 </div>
                             </div>
-                            <div class="order-btn">
-    <?php if (isset($_SESSION['welcomename'])) {
-    // header("location:shopping-cart-empty.php");
-    echo 
-   "<button type='submit' name='submit' class='primary-btn'><a href='order.php'></a>Place Order</button>"
-                            ?> <?php }; ?>
+                             <div class="order-btn">
+                                    <?php if (isset($_SESSION['welcomename'])) {
+                                    // header("location:shopping-cart-empty.php");
+                                    echo 
+                                    "<button type='submit' name='submit' class='primary-btn'><a href='order.php'></a>Place Order</button>"
+                                    ?> <?php }; ?>
 
-<?php if (!isset($_SESSION['welcomename'])) {
-    // header("location:shopping-cart-empty.php");
-    echo 
-   "<a href='login.php' class='site-btn place-btn'>Please Login First</a>"
-   
-                            ?> <?php }; ?>
+                                    <?php if (!isset($_SESSION['welcomename'])) {
+                                        // header("location:shopping-cart-empty.php");
+                                        echo 
+                                    "<a href='login.php' class='site-btn place-btn'>Please Login First</a>"
+                                    
+                                    ?> <?php }; ?>
                             </div>
                         </div>
                     </div>
